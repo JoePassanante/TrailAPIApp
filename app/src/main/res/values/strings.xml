@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TrailAPIApp</string>
+    <string name="about">About!</string>
+    <string name="search">Search!</string>
+    <string name="favs">Favorites!</string>
+    <string name="country">Country: </string>
+    <string name="state">State: </string>
+    <string name="town">Town: </string>
+    <string name="howtosearch">Searching for outdoor trails is easy! Just enter your Country, State and City! Once done click the \"Search!\" Button. All these fields are optional, results will take time to load! </string>
+    <string name="aboutfull">This app was created by Joe Passanante using the trail API found at https://market.mashape.com/trailapi/trailapi! Created on 3/7/18 for SER210 at Quinnipiac University!</string>
+</resources>
