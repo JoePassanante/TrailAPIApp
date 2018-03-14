@@ -19,10 +19,13 @@ import java.net.URL;
 /**
  * Created by Joe Passanante on 3/1/2018.
  * This class will process search requests for locations using the trailAPI.
- * Passes results to Results.java - Would really like to change this to force implementing class to use a callback function.
  */
 
 public class RequestHandler extends AsyncTask<String, Integer,String> {
+    static interface RequestHandlerCallback{
+        void Callback(String JSONResult);
+    }
+
     private Context page;
     private ProgressBar progressBar;
     private String country, state, city;
@@ -32,6 +35,7 @@ public class RequestHandler extends AsyncTask<String, Integer,String> {
     private final static String endurl = "&mashape-key=lDpTXjgi8zmsh6XeS27UrbpugjJ3p1jKo0Njsn1bsU9Va5P4T4";
     private String midurl;
     private String url;
+    private RequestHandlerCallback callBackObject;
 
     /**
      * @param country - The country to search within
@@ -41,9 +45,10 @@ public class RequestHandler extends AsyncTask<String, Integer,String> {
      * @param page - The page the request is being requested from, will be used to forward results to Results.java
      * @param progress - Progress bar to pass search data to(Does not get properly called, left in for future development perhaps).
      */
-    public RequestHandler(String country, String state, String city, int radius, Context page, ProgressBar progress){
+    public RequestHandler(String country, String state, String city, int radius, Context page,RequestHandlerCallback callback, ProgressBar progress){
         //initialize strings if there are values given.
         this.progressBar = progress;
+        this.callBackObject = callback;
         this.page = page;
         this.country = country;
         this.city = city;
@@ -61,8 +66,8 @@ public class RequestHandler extends AsyncTask<String, Integer,String> {
      * @param radius - The radius around the city (Miles)
      * @param page - The page the request is being requested from, will be used to forward results to Results.java
      */
-    public RequestHandler(String country, String state, String city, int radius, Context page){
-        this(country,state,city,radius,page,null);
+    public RequestHandler(String country, String state, String city, int radius, Context page,RequestHandlerCallback callback){
+        this(country,state,city,radius,page,callback,null);
     }
     @Override
     //will not be using
@@ -77,9 +82,7 @@ public class RequestHandler extends AsyncTask<String, Integer,String> {
         //Once we have our results, we need to pass it to the results activity
         if(result==null || result.isEmpty())
             return;
-        Intent resultPage = new Intent(page, e.joepassanante.trailapiapp.Results.class); // we pass the page parameter for context,as request handler can be used witin any context. 
-        resultPage.putExtra(Results.RESULT_KEY,result); //pass the JSONString to the results activity. The results activity is responsible for parsing this into sites. 
-        page.startActivity(resultPage); // start the activity. 
+        this.callBackObject.Callback(result);
     }
 
     @Override
