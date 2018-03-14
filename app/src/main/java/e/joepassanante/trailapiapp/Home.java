@@ -18,14 +18,16 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
     }
+
     //call when search is pressed
-    public void onClickSearch(View view){
+    public void onClickSearch(View view) {
         //create a new search menu screen for the user
         Intent search = new Intent(this, e.joepassanante.trailapiapp.Search.class);
         startActivity(search);
     }
+
     //call when about is clicked
-    public void onClickAbout(View view){
+    public void onClickAbout(View view) {
         //create a new intent that brings user to about screen.
         Intent about = new Intent(this, e.joepassanante.trailapiapp.AboutActivity.class);
         startActivity(about);

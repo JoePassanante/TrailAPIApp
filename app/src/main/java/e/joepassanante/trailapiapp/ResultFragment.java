@@ -1,80 +1,93 @@
 package e.joepassanante.trailapiapp;
 
-import android.app.AlertDialog;
-import android.app.ListActivity;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+
+import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.util.ArrayList;
 
+
 /**
- * Author: Joe Passanante
- * Date: 3/5/18
- * Description of Class: Results is created after RequestHandler.java gets a string of data. This class than coverts it to JSON, parses the JSON, and
- * eventually turns it into an array of various sites given the search parameters.
- * The class then displays the results in a list.
+ * A simple {@link Fragment} subclass.
  */
-public class Results extends ListActivity{
-    static public final String RESULT_KEY = "SEARCH_RESULTS";
+public class ResultFragment extends ListFragment {
+    static interface ResultFragmentItemListener{
+        void ResultFragmentItemClicked(int position);
+    }
+    private ResultFragmentItemListener listener;
+    private String JSONResult = "";
     private JSONObject json;
-    protected static ArrayList<Site>sites = new ArrayList<Site>();
+    protected static  ArrayList<Site> sites;
+
+    public ResultFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //now that we have all this data... we need to figure out how to display it.
         try {
-            this.json = new JSONObject((String) getIntent().getStringExtra(Results.RESULT_KEY));
+            this.json = new JSONObject(this.JSONResult);
             this.sites = getSitesFromJSON(this.json.getJSONArray("places"));
-        }catch(org.json.JSONException e){
+        } catch (org.json.JSONException e) {
             e.printStackTrace();
         }
         //now we need to upload list to user
-        ListView list = getListView();
-        ArrayAdapter<Site>adapt = new ArrayAdapter<Site>(this, R.layout.support_simple_spinner_dropdown_item,this.sites);
-        list.setAdapter(adapt);
-        //instead of displaying an empty screen, prompt user if there are no results to go back and search for something else
-        if(adapt.isEmpty()){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Oops! Looks like there are no outdoor activities for the parameters you've entered!")
-                    .setPositiveButton("Return to Search Screen", new DialogInterface.OnClickListener(){
-                        public void onClick(DialogInterface dialog, int id) {
-                            finish(); //ends the current activity
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
+
     }
 
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        Intent siteDetails = new Intent(this, e.joepassanante.trailapiapp.SiteView.class);
-        siteDetails.putExtra(SiteView.SITE_VIEW_KEY,(int)id); //give the siteView the site array id(not site id), so that it call pull its data.
-        startActivity(siteDetails);
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             Bundle savedInstanceState) {
+        final Context context = inflater.getContext();
+
+        // Inflate the layout for this fragment
+        ArrayAdapter<Site> adapt = new ArrayAdapter<Site>(context, R.layout.support_simple_spinner_dropdown_item, this.sites);
+        setListAdapter(adapt);
+
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+    @Override
+    public void onAttach(android.app.Activity activity){
+        super.onAttach(activity);
+        this.listener = (ResultFragmentItemListener) activity;
+    }
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        if(listener!=null){
+            listener.ResultFragmentItemClicked(position);
+        }
+
+    }
+
+    public void setJSONString(String JSONString) {
+        this.JSONResult = JSONString;
+    }
+
 
     /**
      * @param places JSONArray of places to be parsed.
      * @return returns ArrayList of sites.
      * @throws org.json.JSONException
      */
-    private ArrayList<Site> getSitesFromJSON(JSONArray places)throws org.json.JSONException{
-        ArrayList<Site>returnSites = new ArrayList<Site>();
+    private ArrayList<Site> getSitesFromJSON(JSONArray places) throws org.json.JSONException {
+        ArrayList<Site> returnSites = new ArrayList<Site>();
         final int length = places.length();
         //loop through the JSON Array of all the sites.
-        for(int i=0;i<length;i++){
+        for (int i = 0; i < length; i++) {
             returnSites.add(this.getSite(places.getJSONObject(i)));
         }
         return returnSites;
@@ -87,7 +100,7 @@ public class Results extends ListActivity{
      * @return - returns the Site Object with all the corresponding properties filled out.
      * @throws org.json.JSONException
      */
-    private Site getSite(JSONObject j)throws org.json.JSONException{
+    private Site getSite(JSONObject j) throws org.json.JSONException {
         Site mySite = new Site();
         //get data from JSON and set properties of Site accordingly
         mySite.setCountry(j.getString("country"));
@@ -107,11 +120,11 @@ public class Results extends ListActivity{
      * @return returns an ArrayList<Activity> from JSON data.
      * @throws org.json.JSONException
      */
-    private ArrayList<Activity> getActivitiesFromJSONArray(JSONArray j)throws org.json.JSONException{
+    private ArrayList<Activity> getActivitiesFromJSONArray(JSONArray j) throws org.json.JSONException {
         ArrayList<Activity> activities = new ArrayList<Activity>();
         final int length = j.length();
         //loop through the JSONArray
-        for(int i=0;i<length;i++){
+        for (int i = 0; i < length; i++) {
             Activity a = new Activity();
             //assign data to properties of the activity accordingly.
             a.setName(j.getJSONObject(i).getString("name"));
@@ -126,4 +139,3 @@ public class Results extends ListActivity{
         return activities;
     }
 }
-

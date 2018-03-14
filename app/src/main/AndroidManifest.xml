@@ -19,9 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Search" />
-        <activity android:name=".Results" />
-        <activity android:name=".SiteView" />
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".SiteResults"></activity>
+        <activity android:name=".SiteView"></activity>
     </application>
 
 </manifest>
