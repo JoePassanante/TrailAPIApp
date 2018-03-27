@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnCount="2"
-    tools:context="e.joepassanante.trailapiapp.Search">
+    >
     <ImageView
         android:layout_columnSpan="2"
         android:layout_column="0"

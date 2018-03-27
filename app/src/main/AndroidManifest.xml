@@ -18,10 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Search" />
         <activity android:name=".AboutActivity" />
-        <activity android:name=".SiteResults"></activity>
-        <activity android:name=".SiteView"></activity>
+        <activity android:name=".SiteResults" />
+        <activity android:name=".SiteView" />
+        <activity android:name=".SearchHolderActivity"></activity>
     </application>
 
 </manifest>
