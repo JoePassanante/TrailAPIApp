@@ -34,16 +34,13 @@ public class FavoritesHomeMenuFragment extends Fragment implements FavoritesList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View layout = inflater.inflate(R.layout.fragment_favorites_home, container, false);
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         FavoritesListFragment results = new FavoritesListFragment();
-        ft.replace(R.id.FavResultFragmentContainer,results);
-        ft.addToBackStack(null);
+        ft.replace(R.id.SearchesListContainer,results);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.commit();
 
-        return layout;
+        return inflater.inflate(R.layout.fragment_favorites_home, container, false);
     }
 
     @Override

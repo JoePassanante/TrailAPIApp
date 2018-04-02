@@ -82,6 +82,7 @@ public class RequestHandler extends AsyncTask<String, Integer, String> {
         //Once we have our results, we need to pass it to the results activity
         if (result == null || result.isEmpty())
             return;
+        Log.i("SearchRequestHandler", "Returning results through callback function. ");
         this.callBackObject.Callback(result);
     }
 
@@ -106,6 +107,7 @@ public class RequestHandler extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... strings) {
+        Log.i("SearchRequestHandler", "Starting background task. ");
         HttpURLConnection connection = null;
         BufferedReader reader = null;
         try {
@@ -137,6 +139,7 @@ public class RequestHandler extends AsyncTask<String, Integer, String> {
                     return null;
                 }
         }
+        Log.i("SearchRequestHandler", "Ending background task. ");
         return null;
     }
 

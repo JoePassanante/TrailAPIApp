@@ -51,7 +51,7 @@ public class FavoritesListFragment extends ListFragment {
         Log.i("Searches Count",""+this.searches.size());
         ArrayAdapter<Search> adapt = new ArrayAdapter<Search>(context, R.layout.support_simple_spinner_dropdown_item, this.searches);;
         setListAdapter(adapt);
-
+        Log.i("Adapter Count",""+adapt.isEmpty());
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

@@ -3,13 +3,16 @@ package e.joepassanante.trailapiapp;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+
 public class FavoritesHolder extends AppCompatActivity
-        implements FavoritesHomeMenuFragment.FavoritesHomeListener, RequestHandler.RequestHandlerCallback, SiteViewFragment.SiteViewDataHolder, FavoritesListFragment.FavoritesListener {
+        implements FavoritesHomeMenuFragment.FavoritesHomeListener, RequestHandler.RequestHandlerCallback, SiteViewFragment.SiteViewDataHolder, FavoritesListFragment.FavoritesListener,ResultFragment.ResultFragmentItemListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class FavoritesHolder extends AppCompatActivity
     @Override
     public void onResultClick(Search search) {
         RequestHandler h = new RequestHandler(search.getCountry(), search.getState(), search.getCity(), 200, this);
+        h.execute();
     }
 
     @Override
@@ -46,10 +50,10 @@ public class FavoritesHolder extends AppCompatActivity
 
         }
     }
-
+    private Site s;
     @Override
     public Site getSite() {
-        return null;
+        return s;
     }
 
     @Override
@@ -70,6 +74,28 @@ public class FavoritesHolder extends AppCompatActivity
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    public void ResultFragmentItemClicked(int position, Site site) {
+        this.s = site;
+        View fc = findViewById(R.id.FavResultSiteFragmentContainer);
+        if(fc!=null){
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            SiteViewFragment siteview = new SiteViewFragment();
+            ft.replace(R.id.FavResultSiteFragmentContainer, siteview);
+            ft.addToBackStack(null);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ft.commit();
+        }else{
+            //This is such a terrible work around. Needs to be cleaned up in the future, if a clear solution is available.
+            Intent intent = new Intent(this, e.joepassanante.trailapiapp.SiteViewHolder.class);
+            ResultFragment.sites = new ArrayList<Site>();
+            ResultFragment.sites.add(this.s);
+            intent.putExtra(SiteViewHolder.SiteIDTag,0);
+            startActivity(intent);
+        }
+
     }
 }
 
