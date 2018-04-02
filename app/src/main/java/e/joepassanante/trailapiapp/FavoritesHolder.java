@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FavoritesHolder extends AppCompatActivity
@@ -18,11 +19,30 @@ public class FavoritesHolder extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites_main);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FavoritesHomeMenuFragment home = new FavoritesHomeMenuFragment();
+        ft.replace(R.id.menufrag, home);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.commit();
+
     }
 
     @Override
     public void onRemoveClick(Search search) {
-
+        try{
+            SearchDatabaseSource db = new SearchDatabaseSource(this);
+            db.open();
+            db.removeSearch(search.getCountry(),search.getState(),search.getCity(),search.getName());
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        //now we need to refresh the fragment
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FavoritesHomeMenuFragment home = new FavoritesHomeMenuFragment();
+        ft.replace(R.id.menufrag, home);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.commit();
     }
 
     @Override

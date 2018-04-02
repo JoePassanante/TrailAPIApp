@@ -72,4 +72,19 @@ public class SearchDatabaseSource {
         s.setCity(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_CITY)));
         return s;
     }
+    public void removeSearch(String country, String state, String city, String name){
+        country = (country!=null)? country : "";
+        state = (state!=null)? state : "";
+        city = (city!=null)? city : "";
+        name = (name!=null)? name : (country+"/"+state+"/"+city);
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_COUNTRY,country);
+        values.put(MySQLiteHelper.COLUMN_STATE,state);
+        values.put(MySQLiteHelper.COLUMN_CITY,city);
+        values.put(MySQLiteHelper.COLUMN_NAME,name);
+        if(this.database==null){
+            Log.e("No database","THERE IS NO DATABASE");
+        }
+        long id = database.delete(MySQLiteHelper.TABLE_COMMENTS,MySQLiteHelper.COLUMN_NAME+"='"+name+"'",null);
+    }
 }

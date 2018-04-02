@@ -13,7 +13,10 @@ import android.view.View;
  * Description of Class: Handles button clicks for front page.
  */
 public class HomeHolder extends AppCompatActivity
-        implements HomeFragment.HomeFragmentListener, SearchFragment.SearchFragmentListener,ResultFragment.ResultFragmentItemListener {
+        implements SearchFragment.SearchFragmentListener,ResultFragment.ResultFragmentItemListener, SiteViewFragment.SiteViewDataHolder {
+
+   private Site mySite;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +24,41 @@ public class HomeHolder extends AppCompatActivity
     }
 
     @Override
+    public Site getSite() {
+        return this.mySite;
+    }
+
+    @Override
+    public void ResultFragmentItemClicked(int position, Site site) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        SiteViewFragment fragment = new SiteViewFragment();
+        ft.replace(R.id.SiteFragmentContainer, fragment);
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
+    }
+
+    @Override
+    public void callBackMethod(String JSONSRESULT) {
+        View fc = findViewById(R.id.ResultFragmentContainer);
+        if (fc != null) {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ResultFragment fragment = new ResultFragment();
+            fragment.setJSONString(JSONSRESULT);
+            ft.replace(R.id.ResultFragmentContainer, fragment);
+            ft.addToBackStack(null);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
+        }else{
+            //We are in small mode :/
+
+        }
+    }
+
+    /*
+    @Override
     public void searchButtonListener() {
-        View fc = findViewById(R.id.searchFragmentContainer);
+        View fc = findViewById(R.id);
         if (fc != null) {
             //that means we are in the big mode!
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -65,9 +101,12 @@ public class HomeHolder extends AppCompatActivity
 
     @Override
     public void ResultFragmentItemClicked(int position, Site site) {
+        View fc = findViewById(R.id.searchFragmentContainer);
+        if (fc != null) {
         Site s = site;
         Intent intent = new Intent(this, SiteViewHolder.class);
         intent.putExtra(SiteViewHolder.SiteIDTag,position);
         startActivity(intent);
     }
+    */
 }
