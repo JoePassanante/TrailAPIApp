@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SiteResults extends AppCompatActivity implements ResultFragment.ResultFragmentItemListener{
+public class ResultsHolder extends AppCompatActivity implements ResultFragment.ResultFragmentItemListener{
     static public final String RESULT_KEY = "SEARCH_RESULTS";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +24,8 @@ public class SiteResults extends AppCompatActivity implements ResultFragment.Res
     @Override
     public void ResultFragmentItemClicked(int position) {
         Site s = ResultFragment.sites.get(position);
-        Intent intent = new Intent(this, SiteView.class);
-        intent.putExtra(SiteView.SiteIDTag,position);
+        Intent intent = new Intent(this, SiteViewHolder.class);
+        intent.putExtra(SiteViewHolder.SiteIDTag,position);
         startActivity(intent);
     }
 }

@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Home">
+        <activity android:name=".HomeHolder">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AboutActivity" />
-        <activity android:name=".SiteResults" />
-        <activity android:name=".SiteView" />
+        <activity android:name=".ResultsHolder" />
+        <activity android:name=".SiteViewHolder" />
         <activity android:name=".SearchHolderActivity"></activity>
     </application>
 

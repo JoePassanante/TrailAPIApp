@@ -1,20 +1,18 @@
 package e.joepassanante.trailapiapp;
 
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 
 /**
  * Author: Joe Passanante
  * Date: 3/5/18
  * Description of Class: Handles button clicks for front page.
  */
-public class Home extends AppCompatActivity
+public class HomeHolder extends AppCompatActivity
         implements HomeFragment.HomeFragmentListener, SearchFragment.SearchFragmentListener,ResultFragment.ResultFragmentItemListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +66,8 @@ public class Home extends AppCompatActivity
     @Override
     public void ResultFragmentItemClicked(int position) {
         Site s = ResultFragment.sites.get(position);
-        Intent intent = new Intent(this, SiteView.class);
-        intent.putExtra(SiteView.SiteIDTag,position);
+        Intent intent = new Intent(this, SiteViewHolder.class);
+        intent.putExtra(SiteViewHolder.SiteIDTag,position);
         startActivity(intent);
     }
 }

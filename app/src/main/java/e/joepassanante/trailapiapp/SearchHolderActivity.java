@@ -15,8 +15,8 @@ public class SearchHolderActivity extends AppCompatActivity
 
     @Override
     public void callBackMethod(String JSONSRESULT) {
-        Intent intent = new Intent(this, e.joepassanante.trailapiapp.SiteResults.class);
-        intent.putExtra(SiteResults.RESULT_KEY, JSONSRESULT);
+        Intent intent = new Intent(this, ResultsHolder.class);
+        intent.putExtra(ResultsHolder.RESULT_KEY, JSONSRESULT);
         startActivity(intent);
     }
 }

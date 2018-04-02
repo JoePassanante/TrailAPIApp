@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -18,7 +17,9 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class SiteViewFragment extends Fragment {
-    private static String KEY = "SUPER_SECRET_SPECIAL_KEY";
+    static interface SiteViewDataHolder{
+        public Site getSite();
+    }
     private Site mySite;
     private View layout;
     private TextView sitename, country, state, city, id, directions, activities;
@@ -26,8 +27,10 @@ public class SiteViewFragment extends Fragment {
     public SiteViewFragment() {
         // Required empty public constructor
     }
-    public void setSite(){
-        this.mySite = SiteView.mySite;
+    @Override
+    public void onAttach(android.app.Activity activity) {
+        super.onAttach(activity);
+        this.mySite = ((SiteViewDataHolder)activity).getSite();
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

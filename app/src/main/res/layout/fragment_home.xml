@@ -10,10 +10,8 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="330dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/mountain" />
 
@@ -23,6 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="49dp"
         android:onClick="onClickSearch"
         android:text="@string/search" />
 
