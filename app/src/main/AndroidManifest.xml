@@ -21,7 +21,8 @@
         <activity android:name=".AboutActivity" />
         <activity android:name=".ResultsHolder" />
         <activity android:name=".SiteViewHolder" />
-        <activity android:name=".SearchHolderActivity"></activity>
+        <activity android:name=".SearchHolderActivity" />
+        <activity android:name=".FavoritesHolder"></activity>
     </application>
 
 </manifest>

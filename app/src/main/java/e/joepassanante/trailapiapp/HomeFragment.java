@@ -49,7 +49,14 @@ public class HomeFragment extends Fragment {
                 listener.aboutButtonListener();
             }
         });
-
+        ((Button)layout.findViewById(R.id.favButton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener==null)
+                    return;
+                listener.favoriteButtonListener();
+            }
+        });
 
         // Inflate the layout for this fragment
         return layout;

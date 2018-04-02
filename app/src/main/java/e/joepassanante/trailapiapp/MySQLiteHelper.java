@@ -18,7 +18,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CITY = "city";
     public static final String COLUMN_NAME = "name";
 
-    public static final String DATABASE_NAME = "favorites.db";
+    public static final String DATABASE_NAME = "testing1.db";
     private static final int DATABASE_VERSION = 1;
 
     // Database creation sql statement

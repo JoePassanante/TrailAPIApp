@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class SearchDatabaseSource {
     private MySQLiteHelper dbhelper;
     private SQLiteDatabase database;
-    private String[] allColumns = {MySQLiteHelper.COLUMN_ID,MySQLiteHelper.COLUMN_CITY,MySQLiteHelper.COLUMN_STATE,MySQLiteHelper.COLUMN_COUNTRY};
+    private String[] allColumns = {MySQLiteHelper.COLUMN_ID,MySQLiteHelper.COLUMN_CITY,MySQLiteHelper.COLUMN_STATE,MySQLiteHelper.COLUMN_COUNTRY,MySQLiteHelper.COLUMN_NAME,};
     public SearchDatabaseSource(Context context) {
         this.dbhelper = new MySQLiteHelper(context);
     }
@@ -41,6 +41,7 @@ public class SearchDatabaseSource {
         values.put(MySQLiteHelper.COLUMN_COUNTRY,country);
         values.put(MySQLiteHelper.COLUMN_STATE,state);
         values.put(MySQLiteHelper.COLUMN_CITY,city);
+        values.put(MySQLiteHelper.COLUMN_NAME,name);
         if(this.database==null){
             Log.e("No database","THERE IS NO DATABASE");
         }
@@ -51,23 +52,24 @@ public class SearchDatabaseSource {
     }
 
     public ArrayList<Search> getAllSearchs() {
-        ArrayList<Search> comments = new ArrayList<Search>();
+        ArrayList<Search> searches= new ArrayList<Search>();
         Cursor cursor = database.query(MySQLiteHelper.TABLE_COMMENTS,allColumns,null,null,null,null,null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             Search search = cursorToSearch(cursor);
-            comments.add(search);
+            searches.add(search);
             cursor.moveToNext();
         }
-        return comments;
+        return searches;
     }
     //ID, CITY,STATE, COUNTRY
     private Search cursorToSearch(Cursor cursor) {
         Search s = new Search();
-        s.setName(cursor.getString(4));
-        s.setCountry(cursor.getString(3));
-        s.setState(cursor.getString(2));
-        s.setCity(cursor.getString(1));
+        Log.i("Database",""+cursor.getColumnCount());
+        s.setName(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_NAME)));
+        s.setCountry(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_COUNTRY)));
+        s.setState(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_STATE)));
+        s.setCity(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_CITY)));
         return s;
     }
 }

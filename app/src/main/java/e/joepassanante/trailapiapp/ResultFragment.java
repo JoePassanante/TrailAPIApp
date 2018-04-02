@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class ResultFragment extends ListFragment {
     static interface ResultFragmentItemListener{
-        void ResultFragmentItemClicked(int position);
+        void ResultFragmentItemClicked(int position, Site site);
     }
     private ResultFragmentItemListener listener;
     private String JSONResult = "";
@@ -68,7 +68,7 @@ public class ResultFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         if(listener!=null){
-            listener.ResultFragmentItemClicked(position);
+            listener.ResultFragmentItemClicked(position, sites.get(position));
         }
 
     }

@@ -5,6 +5,7 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +19,14 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FavoritesFragment extends ListFragment {
+public class FavoritesListFragment extends ListFragment {
     static interface FavoritesListener{
-        public void FavoriteItemClicked(int position);
+        public void FavoriteItemClicked(int position, Search search);
     }
-
+    private ArrayList<Search> searches;
     private FavoritesListener listener;
 
-    public FavoritesFragment() {
+    public FavoritesListFragment() {
         // Required empty public constructor
     }
 
@@ -39,6 +40,7 @@ public class FavoritesFragment extends ListFragment {
             SearchDatabaseSource db = new SearchDatabaseSource(getActivity());
             db.open();
             s = db.getAllSearchs();
+            this.searches = s;
             db.close();
 
         }catch(SQLException e){
@@ -46,7 +48,8 @@ public class FavoritesFragment extends ListFragment {
         }
 
         // Inflate the layout for this fragment
-        ArrayAdapter<Search> adapt = new ArrayAdapter<Search>(context, R.layout.support_simple_spinner_dropdown_item, s);;
+        Log.i("Searches Count",""+this.searches.size());
+        ArrayAdapter<Search> adapt = new ArrayAdapter<Search>(context, R.layout.support_simple_spinner_dropdown_item, this.searches);;
         setListAdapter(adapt);
 
         return super.onCreateView(inflater, container, savedInstanceState);
@@ -61,7 +64,7 @@ public class FavoritesFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         if(listener!=null){
-            listener.FavoriteItemClicked(position);
+            listener.FavoriteItemClicked(position, this.searches.get(position));
         }
 
     }

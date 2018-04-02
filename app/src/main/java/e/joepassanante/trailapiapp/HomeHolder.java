@@ -42,7 +42,8 @@ public class HomeHolder extends AppCompatActivity
 
     @Override
     public void favoriteButtonListener() {
-
+        Intent intent = new Intent(this, FavoritesHolder.class);
+        startActivity(intent);
     }
 
     @Override
@@ -60,12 +61,11 @@ public class HomeHolder extends AppCompatActivity
         ft.addToBackStack(null);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
-        Log.i("File","We loaded the larger file!");
     }
 
     @Override
-    public void ResultFragmentItemClicked(int position) {
-        Site s = ResultFragment.sites.get(position);
+    public void ResultFragmentItemClicked(int position, Site site) {
+        Site s = site;
         Intent intent = new Intent(this, SiteViewHolder.class);
         intent.putExtra(SiteViewHolder.SiteIDTag,position);
         startActivity(intent);

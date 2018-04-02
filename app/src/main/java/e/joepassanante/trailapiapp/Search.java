@@ -50,6 +50,6 @@ public class Search {
         this.city = city;
     }
     public String toString(){
-        return ("Country: " + this.getCountry() + " State: " + this.getState() + " City: " + this.getCity());
+        return this.getName();
     }
 }

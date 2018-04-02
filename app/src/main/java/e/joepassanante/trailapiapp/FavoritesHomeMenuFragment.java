@@ -5,6 +5,7 @@ import android.app.*;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,13 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FavoritesHomeFragment extends Fragment implements FavoritesListFragment.FavoritesListener {
+public class FavoritesHomeMenuFragment extends Fragment implements FavoritesListFragment.FavoritesListener {
     static interface FavoritesHomeListener{
         void onResultClick(Search search);
         void onRemoveClick(Search search);
     }
     private FavoritesHomeListener listener;
-    public FavoritesHomeFragment() {
+    public FavoritesHomeMenuFragment() {
         // Required empty public constructor
     }
 
@@ -33,11 +34,21 @@ public class FavoritesHomeFragment extends Fragment implements FavoritesListFrag
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites_home, container, false);
+        View layout = inflater.inflate(R.layout.fragment_favorites_home, container, false);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FavoritesListFragment results = new FavoritesListFragment();
+        ft.replace(R.id.FavResultFragmentContainer,results);
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.commit();
+
+        return layout;
     }
 
     @Override
     public void FavoriteItemClicked(int position, final Search search) {
+        Log.i("Clicked",String.valueOf(position));
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("What would you like to do?")
                 .setCancelable(false)
