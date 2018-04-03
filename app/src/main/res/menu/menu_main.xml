@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".HomeHolder">
+    <item android:id="@+id/addtofavorites"
+        android:title="Go to Favorites"
+        android:orderInCategory="2"
+        android:showAsAction="always" />
+
+    <item android:id="@+id/addtofavorites2"
+        android:title="action_favorites"
+        android:orderInCategory="3"
+        android:showAsAction="ifRoom" />
+
+    <item android:id="@+id/addtofavorites3"
+        android:title="action_favorites"
+        android:orderInCategory="4"
+        android:showAsAction="ifRoom" />
+</menu>

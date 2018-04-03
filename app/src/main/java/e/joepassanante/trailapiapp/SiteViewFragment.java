@@ -49,6 +49,9 @@ public class SiteViewFragment extends Fragment {
         this.activities = (TextView) layout.findViewById(R.id.activies);
 
         //set the text views their corresponding data representation.
+        if(this.mySite==null)
+            return;
+
         this.sitename.setText(mySite.getName());
         this.country.setText("Country: " + mySite.getCountry());
         this.state.setText("State: " + mySite.getState());
