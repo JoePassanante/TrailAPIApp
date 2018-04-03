@@ -8,8 +8,9 @@
     android:weightSum="6"
     tools:context="e.joepassanante.trailapiapp.HomeHolder">
     <!-- android:layout_width="1dp" -->
+
     <FrameLayout
-        android:id="@+id/menufrag"
+        android:id="@+id/menu-"
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="match_parent"/>

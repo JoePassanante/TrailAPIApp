@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,9 +8,8 @@
     android:orientation="horizontal"
     android:weightSum="3"
     tools:context="e.joepassanante.trailapiapp.HomeHolder">
-    <!-- android:layout_width="1dp" -->
     <fragment
-        android:id="@+id/list_frag"
+        android:id="@+id/menufrag"
         class="e.joepassanante.trailapiapp.SearchFragment"
         android:layout_width="0dp"
         android:layout_weight="1"

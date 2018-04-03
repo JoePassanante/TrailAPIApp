@@ -30,6 +30,7 @@ public class HomeHolder extends AppCompatActivity
 
     @Override
     public void ResultFragmentItemClicked(int position, Site site) {
+        this.mySite = site;
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         SiteViewFragment fragment = new SiteViewFragment();
         ft.replace(R.id.SiteFragmentContainer, fragment);

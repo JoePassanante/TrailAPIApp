@@ -66,3 +66,34 @@
         startActivity(intent);
     }
     */
+    ---------------------------------
+    <?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        tools:context="e.joepassanante.trailapiapp.HomeHolder">
+        <fragment
+            android:id="@+id/menufrag"
+            class="e.joepassanante.trailapiapp.SearchFragment"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+             />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/ResultFragmentContainer"/>
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/SiteFragmentContainer"/>
+
+
+    </LinearLayout>
