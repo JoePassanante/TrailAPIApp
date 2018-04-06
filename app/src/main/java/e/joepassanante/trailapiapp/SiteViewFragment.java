@@ -34,6 +34,7 @@ public class SiteViewFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("Step","One");
+        this.setRetainInstance(true);
     }
 
     @Override
