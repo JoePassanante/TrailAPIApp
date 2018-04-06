@@ -1,6 +1,7 @@
 package e.joepassanante.trailapiapp;
 
 import android.app.*;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -71,7 +72,9 @@ public class HomeHolder extends AppCompatActivity
             ft.commit();
         }else{
             //We are in small mode :/
-
+            Intent intent = new Intent(this, e.joepassanante.trailapiapp.ResultsHolder.class);
+            intent.putExtra(ResultsHolder.RESULT_KEY,JSONSRESULT);
+            startActivity(intent);
         }
     }
 }

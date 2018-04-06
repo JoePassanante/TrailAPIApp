@@ -52,6 +52,8 @@ public class SearchFragment extends Fragment
         this.db = new SearchDatabaseSource(getActivity());
         final View layout = inflater.inflate(R.layout.fragment_search,container,false);
 
+
+
         this.progressBar = (ProgressBar)layout.findViewById(R.id.progressbar);
 
         //This is apart of the fragments core-functionality and therefore does not need to be passed to listener.
