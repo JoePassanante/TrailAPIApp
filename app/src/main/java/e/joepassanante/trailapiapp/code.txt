@@ -1,0 +1,99 @@
+  This file is a collection of dead code that is no longer being used for the project, but contains gists that may/are a reference for further development.
+
+  //XML
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_row="1"
+        android:layout_columnSpan="2"
+        android:id="@+id/list_frag"
+        class="e.joepassanante.trailapiapp.FavoritesListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+        //RANDOM JAVA
+    /*
+
+    @Override
+    public void searchButtonListener() {
+        View fc = findViewById(R.id);
+        if (fc != null) {
+            //that means we are in the big mode!
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            SearchFragment search = new SearchFragment();
+            ft.replace(R.id.searchFragmentContainer,search);
+            ft.addToBackStack(null);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ft.commit();
+            Log.i("File","We loaded the larger file!");
+        }else{
+            Log.i("File","We loaded the smaller file!");
+            //We are in regular mode :D
+            Intent intent = new Intent(this, e.joepassanante.trailapiapp.SearchHolderActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void favoriteButtonListener() {
+        Intent intent = new Intent(this, FavoritesHolder.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void aboutButtonListener() {
+
+    }
+
+    @Override
+    public void callBackMethod(String JSONSRESULT) {
+        //if this is being called, that means the results were passed back to us!
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ResultFragment fragment = new ResultFragment();
+        fragment.setJSONString(JSONSRESULT);
+        ft.replace(R.id.ResultFragmentContainer, fragment);
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
+    }
+
+    @Override
+    public void ResultFragmentItemClicked(int position, Site site) {
+        View fc = findViewById(R.id.searchFragmentContainer);
+        if (fc != null) {
+        Site s = site;
+        Intent intent = new Intent(this, SiteViewHolder.class);
+        intent.putExtra(SiteViewHolder.SiteIDTag,position);
+        startActivity(intent);
+    }
+    */
+    ---------------------------------
+    <?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        tools:context="e.joepassanante.trailapiapp.HomeHolder">
+        <fragment
+            android:id="@+id/menufrag"
+            class="e.joepassanante.trailapiapp.SearchFragment"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+             />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/ResultFragmentContainer"/>
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/SiteFragmentContainer"/>
+
+
+    </LinearLayout>

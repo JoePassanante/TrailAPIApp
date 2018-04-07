@@ -8,6 +8,7 @@ package e.joepassanante.trailapiapp;
 public class Activity {
     private String name, id, type, url, description, length;
     private int rating;
+
     //setters/getters for properties.
     public String getName() {
         return name;

@@ -1,38 +1,55 @@
 package e.joepassanante.trailapiapp;
 
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 /**
- * Author: Joe Passanante
- * Date: 3/5/18
- * Description of Class: Handles the creation of the request handler.
+ * Created by Joe Passanante on 4/2/2018.
  */
-public class Search extends AppCompatActivity {
-    private RequestHandler h;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+
+public class Search {
+    private String name;
+    private String country;
+    private String state;
+    private String city;
+    public Search(){
+        //empty constructor option
     }
-    public void onClickSearchButton(View view){
-        //create a RequestHandler, which will get the data from the Server and send it to the Results.java activity.
-        if(h!=null && h.getStatus().equals(AsyncTask.Status.RUNNING)) //if a search is already in progress, we shouldn't trigger another one.
-            return;
-        h = new RequestHandler(
-                ((TextView)findViewById(R.id.country)).getText().toString(),
-                ((TextView)findViewById(R.id.state)).getText().toString(),
-                ((TextView)findViewById(R.id.city)).getText().toString(),
-                200,
-                this,null);
-        h.execute();
-        Log.i("STATUS",String.valueOf(h.getStatus()));
+    public Search(String country, String state, String city){
+        this.country = country;
+        this.state = state;
+        this.city = city;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+    public String toString(){
+        return this.getName();
     }
 }

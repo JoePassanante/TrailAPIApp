@@ -1,0 +1,22 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    tools:context="e.joepassanante.trailapiapp.FavoritesHomeMenuFragment">
+    <TextView
+        android:layout_row="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This is a list of all your saved searchs! Click on one to view options such as view search or remove from favorites! No favorites being shown? Go to the search page and add a search to your favorites list!"/>
+    <FrameLayout
+        android:backgroundTint="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_height="match_parent"
+        android:id="@+id/SearchesListContainer"/>
+
+
+</GridLayout>
