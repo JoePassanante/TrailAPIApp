@@ -7,13 +7,13 @@
         android:title="See QU Locations"
         android:orderInCategory="2"
         android:showAsAction="always" />
-    <item android:id="@+id/addtofavorites"
+    <item android:id="@+id/gotofavorites"
         android:title="Go to Favorites"
         android:orderInCategory="2"
         android:showAsAction="always" />
 
     <item android:id="@+id/share"
-        android:title="Share Site"
+        android:title="Share This App!"
         android:orderInCategory="3"
         android:showAsAction="ifRoom" />
 

@@ -41,6 +41,29 @@ public class HomeHolder extends AppCompatActivity
         Log.i("Menu Loading","Attached");
         super.openOptionsMenu();
     };
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+
+                return true;
+            case R.id.qusearch:
+
+                return true;
+            case R.id.gotofavorites:
+
+                return true;
+            case R.id.share:
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "TrailAPI Invite");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Search for great outdoor activities in your area using the TrailAPI App!");
+                startActivity(Intent.createChooser(sharingIntent, "Share invite via"));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     public Site getSite() {
         return this.mySite;

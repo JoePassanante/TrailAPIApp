@@ -33,7 +33,6 @@ public class SearchFragment extends Fragment
     public SearchFragment() {
         // Required empty public constructor
     }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -51,8 +50,6 @@ public class SearchFragment extends Fragment
                              Bundle savedInstanceState) {
         this.db = new SearchDatabaseSource(getActivity());
         final View layout = inflater.inflate(R.layout.fragment_search,container,false);
-
-
 
         this.progressBar = (ProgressBar)layout.findViewById(R.id.progressbar);
 
@@ -75,10 +72,8 @@ public class SearchFragment extends Fragment
                     layout.findViewById(R.id.favnameinput).setVisibility(View.INVISIBLE);
                     layout.findViewById(R.id.favnamelabel).setVisibility(View.INVISIBLE);
                 }
-
             }
         });
-
         return layout;
     }
     @Override
