@@ -10,8 +10,8 @@ import java.util.ArrayList;
  */
 
 public class Site {
-    private String name,description,city,state,country,directions;
-    private int length,id;
+    private String name, description, city, state, country, directions;
+    private int length, id;
     private ArrayList<Activity> activities = new ArrayList<Activity>();
 
 
@@ -19,9 +19,11 @@ public class Site {
     public String getName() {
         return name;
     }
-    public String toString(){
+
+    public String toString() {
         return this.getName();
     }
+
     public void setName(String name) {
         this.name = name;
     }

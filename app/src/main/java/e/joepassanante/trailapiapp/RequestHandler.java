@@ -19,11 +19,13 @@ import java.net.URL;
 /**
  * Created by Joe Passanante on 3/1/2018.
  * This class will process search requests for locations using the trailAPI.
- * Passes results to Results.java - Would really like to change this to force implementing class to use a callback function.
  */
 
-public class RequestHandler extends AsyncTask<String, Integer,String> {
-    private Context page;
+public class RequestHandler extends AsyncTask<String, Integer, String> {
+    static interface RequestHandlerCallback {
+        void Callback(String JSONResult);
+    }
+
     private ProgressBar progressBar;
     private String country, state, city;
     private int radius;
@@ -31,39 +33,42 @@ public class RequestHandler extends AsyncTask<String, Integer,String> {
     private final static String baseurl = "https://trailapi-trailapi.p.mashape.com/";
     private final static String endurl = "&mashape-key=lDpTXjgi8zmsh6XeS27UrbpugjJ3p1jKo0Njsn1bsU9Va5P4T4";
     private String midurl;
-    private String url;
+    private RequestHandlerCallback callBackObject;
 
     /**
-     * @param country - The country to search within
-     * @param state - The state within the country to search in
-     * @param city - The city to target
-     * @param radius - The radius around the city (Miles)
-     * @param page - The page the request is being requested from, will be used to forward results to Results.java
+     * @param country  - The country to search within
+     * @param state    - The state within the country to search in
+     * @param city     - The city to target
+     * @param radius   - The radius around the city (Miles)
+     * @param callback - The method to call with the callback data. This is critical to extract the data out of the process.
      * @param progress - Progress bar to pass search data to(Does not get properly called, left in for future development perhaps).
      */
-    public RequestHandler(String country, String state, String city, int radius, Context page, ProgressBar progress){
+    public RequestHandler(String country, String state, String city, int radius, RequestHandlerCallback callback, ProgressBar progress) {
         //initialize strings if there are values given.
         this.progressBar = progress;
-        this.page = page;
+        this.callBackObject = callback;
         this.country = country;
         this.city = city;
         this.state = state;
-        this.radius = (radius<=200)?radius : 200; //keep radius at 200 miles max || Through testing, this parameter seems to be irrelevant for the API, however keeping due to lack of documentation.
-        Log.i("SearchRequestHandler","We have gotten a request, processing now.");
+        this.radius = (radius <= 200) ? radius : 200; //keep radius at 200 miles max || Through testing, this parameter seems to be irrelevant for the API, however keeping due to lack of documentation.
+        Log.i("SearchRequestHandler", "We have gotten a request, processing now.");
         //build the data containing url that we will be using to get JSON data.
-        midurl = "?q[city_cont]="+this.city+"&q[country_cont]="+this.country+"&q[state_cont]="+this.state+"&radius="+this.radius+"";
+        midurl = "?q[city_cont]=" + this.city + "&q[country_cont]=" + this.country + "&q[state_cont]=" + this.state + "&radius=" + this.radius + "";
     }
 
-    /** Secondary constructor to give option of not having a progress bar.
+    /**
+     * Secondary constructor to give option of not having a progress bar.
+     *
      * @param country - The country to search within
-     * @param state - The state within the country to search in
-     * @param city - The city to target
-     * @param radius - The radius around the city (Miles)
-     * @param page - The page the request is being requested from, will be used to forward results to Results.java
+     * @param state   - The state within the country to search in
+     * @param city    - The city to target
+     * @param radius  - The radius around the city (Miles)
+     * @param callback - The method to call with the callback data. This is critical to extract the data out of the process.
      */
-    public RequestHandler(String country, String state, String city, int radius, Context page){
-        this(country,state,city,radius,page,null);
+    public RequestHandler(String country, String state, String city, int radius, RequestHandlerCallback callback) {
+        this(country, state, city, radius, callback, null);
     }
+
     @Override
     //will not be using
     protected void onPreExecute() {
@@ -75,17 +80,16 @@ public class RequestHandler extends AsyncTask<String, Integer,String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         //Once we have our results, we need to pass it to the results activity
-        if(result==null || result.isEmpty())
+        if (result == null || result.isEmpty())
             return;
-        Intent resultPage = new Intent(page, e.joepassanante.trailapiapp.Results.class); // we pass the page parameter for context,as request handler can be used witin any context. 
-        resultPage.putExtra(Results.RESULT_KEY,result); //pass the JSONString to the results activity. The results activity is responsible for parsing this into sites. 
-        page.startActivity(resultPage); // start the activity. 
+        Log.i("SearchRequestHandler", "Returning results through callback function. ");
+        this.callBackObject.Callback(result);
     }
 
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-        if(this.progressBar!=null) {
+        if (this.progressBar != null) {
             this.progressBar.setProgress(values[0]);
             Log.i("Progress", String.valueOf(values[0]));
         }
@@ -103,46 +107,49 @@ public class RequestHandler extends AsyncTask<String, Integer,String> {
 
     @Override
     protected String doInBackground(String... strings) {
+        Log.i("SearchRequestHandler", "Starting background task. ");
         HttpURLConnection connection = null;
         BufferedReader reader = null;
-        try{
+        try {
             //add all three URL string's together to form the entire required URL
             URL url = new URL(this.baseurl + this.midurl + this.endurl);
-            Log.d("URL",url.toString());
+            Log.d("URL", url.toString());
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
 
             InputStream in = connection.getInputStream(); //get JSON Response from URL.
-            if(in==null)
+            if (in == null)
                 return "";
             reader = new BufferedReader(new InputStreamReader(in));
             String JSONString = getJSonStringFromBuffer(reader);//we keep the JSON in a string format. The results class will parse the data.
-            Log.i("JSON Return",JSONString);
+            Log.i("JSON Return", JSONString);
             return JSONString;
 
-        }catch(Exception e){
-            Log.e("Err",e.getMessage());
-        }finally {
-            if(connection!=null)
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage());
+        } finally {
+            if (connection != null)
                 connection.disconnect();
-            if(reader!=null)
+            if (reader != null)
                 try {
                     reader.close();
-                }catch(IOException io) {
-                    Log.e("Reader Error","Reader Closing Error.");
+                } catch (IOException io) {
+                    Log.e("Reader Error", "Reader Closing Error.");
                     return null;
                 }
         }
+        Log.i("SearchRequestHandler", "Ending background task. ");
         return null;
     }
-    private String getJSonStringFromBuffer(BufferedReader br) throws Exception{
+
+    private String getJSonStringFromBuffer(BufferedReader br) throws Exception {
         StringBuffer buffer = new StringBuffer();
         String line;
-        while((line=br.readLine())!=null){
+        while ((line = br.readLine()) != null) {
             buffer.append(line + "\n");
         }
-        if(buffer.length()==0){
+        if (buffer.length() == 0) {
             return null;
         }
         return buffer.toString();

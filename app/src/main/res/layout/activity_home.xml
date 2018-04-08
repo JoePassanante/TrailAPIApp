@@ -1,41 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_frag"
+    class="e.joepassanante.trailapiapp.SearchFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="e.joepassanante.trailapiapp.Home">
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="330dp"
-        android:scaleType="centerInside"
-        app:srcCompat="@drawable/mountain" />
-
-    <Button
-        android:id="@+id/search"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="onClickSearch"
-        android:text="@string/search" />
-
-    <Button
-        android:id="@+id/about"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/search"
-        android:layout_alignStart="@+id/search"
-        android:layout_below="@+id/search"
-        android:onClick="onClickAbout"
-        android:layout_marginTop="49dp"
-        android:text="@string/about" />
-
-</RelativeLayout>
+    android:layout_height="match_parent" />

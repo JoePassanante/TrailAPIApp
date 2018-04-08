@@ -2,6 +2,7 @@ package e.joepassanante.trailapiapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 /**
  * Author: Joe Passanante
  * Date: 3/5/18
