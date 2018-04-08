@@ -37,30 +37,6 @@
             android:layout_height="wrap_content"
             android:text="Green" />
     </RadioGroup>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:text="Font Selection"/>
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <RadioButton android:id="@+id/defaultFont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Font1(Default)" />
-        <RadioButton android:id="@+id/SecondFont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Font2" />
-        <RadioButton android:id="@+id/ThirdFont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Font3" />
-
-    </RadioGroup>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
