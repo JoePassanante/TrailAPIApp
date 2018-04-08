@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="e.joepassanante.trailapiapp.SettingsActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:text="Theme Selection"/>
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/StyleGroup"
+        android:orientation="vertical">
+        <RadioButton android:id="@+id/defaultTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blue(Default)" />
+        <RadioButton android:id="@+id/OrangeTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Orange" />
+        <RadioButton android:id="@+id/PurpleTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Purple" />
+        <RadioButton android:id="@+id/GreenTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Green" />
+    </RadioGroup>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:text="Font Selection"/>
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton android:id="@+id/defaultFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Font1(Default)" />
+        <RadioButton android:id="@+id/SecondFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Font2" />
+        <RadioButton android:id="@+id/ThirdFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Font3" />
+
+    </RadioGroup>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apply Changes"
+            android:onClick="onApplyClick"/>
+    </LinearLayout>
+</ScrollView>

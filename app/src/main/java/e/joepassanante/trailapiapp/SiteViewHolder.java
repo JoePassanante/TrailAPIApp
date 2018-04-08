@@ -10,6 +10,7 @@ public class SiteViewHolder extends AppCompatActivity implements SiteViewFragmen
     public static Site mySite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SettingsHolder.CURRENT_THEME);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_site_view);
         Log.i("Index Clicked", String.valueOf(getIntent().getExtras().getInt(SiteViewHolder.SiteIDTag)));

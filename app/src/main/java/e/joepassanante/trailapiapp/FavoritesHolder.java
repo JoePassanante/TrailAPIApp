@@ -17,6 +17,7 @@ public class FavoritesHolder extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SettingsHolder.CURRENT_THEME);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites_main);
 
@@ -30,6 +31,7 @@ public class FavoritesHolder extends AppCompatActivity
 
     @Override
     public void onRemoveClick(Search search) {
+        Log.i("onRemoveClick","Removing and Spawning new Fragment");
         try{
             SearchDatabaseSource db = new SearchDatabaseSource(this);
             db.open();
@@ -66,7 +68,10 @@ public class FavoritesHolder extends AppCompatActivity
             ft.commit();
             Log.i("File", "We loaded the larger file!");
         } else {
-            Log.i("File", "We loaded the smaller file!");
+            //We are in small mode :/
+            Intent intent = new Intent(this, e.joepassanante.trailapiapp.ResultsHolder.class);
+            intent.putExtra(ResultsHolder.RESULT_KEY, JSONResult);
+            startActivity(intent);
 
         }
     }

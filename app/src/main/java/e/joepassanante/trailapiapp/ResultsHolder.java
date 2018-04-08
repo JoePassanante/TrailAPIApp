@@ -9,6 +9,7 @@ public class ResultsHolder extends AppCompatActivity implements ResultFragment.R
     static public final String RESULT_KEY = "SEARCH_RESULTS";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SettingsHolder.CURRENT_THEME);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_site_results);
 

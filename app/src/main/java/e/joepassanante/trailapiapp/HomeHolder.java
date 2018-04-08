@@ -2,6 +2,7 @@ package e.joepassanante.trailapiapp;
 
 import android.app.*;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,17 +18,20 @@ import android.widget.ShareActionProvider;
  * Description of Class: Handles button clicks for front page.
  */
 public class HomeHolder extends AppCompatActivity
-        implements SearchFragment.SearchFragmentListener,ResultFragment.ResultFragmentItemListener, SiteViewFragment.SiteViewDataHolder {
+        implements SearchFragment.SearchFragmentListener,ResultFragment.ResultFragmentItemListener, SiteViewFragment.SiteViewDataHolder, RequestHandler.RequestHandlerCallback {
 
-   private Site mySite;
+    private Site mySite;
     private ShareActionProvider shareActionProvider;
-
+    private RequestHandler h;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("Menu Loading","Started");
+        setTheme(SettingsHolder.CURRENT_THEME);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.i("Menu Loading","Loading");
@@ -44,13 +48,26 @@ public class HomeHolder extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
-
+                Intent settings = new Intent(this, e.joepassanante.trailapiapp.SettingsActivity.class);
+                startActivity(settings);
                 return true;
             case R.id.qusearch:
+                //if we are already looking... no need to restart the search
+                if(h!=null && h.getStatus().equals(AsyncTask.Status.RUNNING.toString()))
+                    return true;
 
+                h = new RequestHandler(
+                        "United States",
+                        "Connecticut",
+                        "Hamden",
+                        200,
+                        this
+                );
+                h.execute();
                 return true;
             case R.id.gotofavorites:
-
+                Intent fav = new Intent(this, e.joepassanante.trailapiapp.FavoritesHolder.class);
+                startActivity(fav);
                 return true;
             case R.id.share:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -81,9 +98,9 @@ public class HomeHolder extends AppCompatActivity
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
     }
-
+    //This is for SearchFragment
     @Override
-    public void callBackMethod(String JSONSRESULT) {
+    public void searchCallBackMethod(String JSONSRESULT) {
         View fc = findViewById(R.id.ResultFragmentContainer);
         if (fc != null) {
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -99,5 +116,10 @@ public class HomeHolder extends AppCompatActivity
             intent.putExtra(ResultsHolder.RESULT_KEY,JSONSRESULT);
             startActivity(intent);
         }
+    }
+    //This is for RequestHandler
+    @Override
+    public void Callback(String JSONResult) {
+        this.searchCallBackMethod(JSONResult);
     }
 }

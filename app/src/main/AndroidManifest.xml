@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        android:theme="@style/BlueTheme">
         <activity android:name=".HomeHolder">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,8 +21,8 @@
         <activity android:name=".AboutActivity" />
         <activity android:name=".ResultsHolder" />
         <activity android:name=".SiteViewHolder" />
-        <activity android:name=".SearchHolderActivity" android:configChanges="orientation|screenSize|keyboard|keyboardHidden"/>
-        <activity android:name=".FavoritesHolder"></activity>
+        <activity android:name=".FavoritesHolder" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

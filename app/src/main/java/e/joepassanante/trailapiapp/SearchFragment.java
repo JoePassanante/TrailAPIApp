@@ -21,7 +21,7 @@ public class SearchFragment extends Fragment
         implements RequestHandler.RequestHandlerCallback {
     //implement requestHandler callback, so we can get results from the Request Handler pulling data.
     static interface SearchFragmentListener{
-        void callBackMethod(String JSONSRESULT);
+        void searchCallBackMethod(String JSONSRESULT);
     }
     private SearchFragmentListener listener;
     private RequestHandler h;
@@ -130,7 +130,7 @@ public class SearchFragment extends Fragment
             progressBar.setVisibility(View.INVISIBLE);
         }
         if(listener!=null) { //if we have a listener it means that there is a god like creator that wants us to do whatever they want!
-            listener.callBackMethod(JSONResult);
+            listener.searchCallBackMethod(JSONResult);
         }
     }
 

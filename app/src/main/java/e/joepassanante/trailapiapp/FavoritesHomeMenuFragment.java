@@ -34,6 +34,7 @@ public class FavoritesHomeMenuFragment extends Fragment implements FavoritesList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.i("SpawnList","Spawned.");
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         FavoritesListFragment results = new FavoritesListFragment();
         ft.replace(R.id.SearchesListContainer,results);

@@ -65,7 +65,6 @@ public class SearchDatabaseSource {
     //ID, CITY,STATE, COUNTRY
     private Search cursorToSearch(Cursor cursor) {
         Search s = new Search();
-        Log.i("Database",""+cursor.getColumnCount());
         s.setName(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_NAME)));
         s.setCountry(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_COUNTRY)));
         s.setState(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_STATE)));
